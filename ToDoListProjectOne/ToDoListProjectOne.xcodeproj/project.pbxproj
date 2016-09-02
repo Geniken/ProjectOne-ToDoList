@@ -62,6 +62,7 @@
 		8B7737F11D6FAF3C00CAB8B0 /* ToDoListProjectOne */ = {
 			isa = PBXGroup;
 			children = (
+				8B1F9DB11D78E0190027085E /* List.swift */,
 				8B081A9D1D7761F40033E3AB /* ListTableViewCell.swift */,
 				8B081AA11D78B63E0033E3AB /* CheckBoxControl.swift */,
 				8B081A9B1D7754DB0033E3AB /* ListViewController.swift */,
@@ -71,7 +72,6 @@
 				8B7737F91D6FAF3C00CAB8B0 /* Assets.xcassets */,
 				8B7737FB1D6FAF3C00CAB8B0 /* LaunchScreen.storyboard */,
 				8B7737FE1D6FAF3C00CAB8B0 /* Info.plist */,
-				8B1F9DB11D78E0190027085E /* List.swift */,
 			);
 			path = ToDoListProjectOne;
 			sourceTree = "<group>";

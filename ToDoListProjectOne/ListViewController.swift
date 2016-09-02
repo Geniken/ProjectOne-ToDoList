@@ -23,15 +23,28 @@ class ItemOnList {
 
 
 class ListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    var myIndex = Int()
+    var tasks: [ItemOnList] = [ ItemOnList(date: 0, title: "", attribute: ""),
+                                ItemOnList(date: 0, title: "burp", attribute: "cheese")]      // Instantiation
     
-    var tasks: [ItemOnList] = [ ItemOnList(date: 0, title: "thing", attribute: "attributeThing")]
     
     func numberOfSections (in tableView:UITableView) -> Int {
         return 1
     }
     
+    @IBOutlet weak var myTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        myTableView.delegate = self
+        myTableView.dataSource = self
+        
+        
+        
+        
+        
     }
     
     func tableView (_ tableview: UITableView, numberOfRowsInSection section:Int) -> Int {
@@ -39,11 +52,13 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier:"PrototypeCell") as! ListTableViewCell!
-        let list = tasks[indexPath.row]
-        cell?.listNameLabel?.text = list.attribute
         
-        return cell!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PrototypeCell", for: indexPath)
+        let list = tasks[indexPath.row]
+        cell.textLabel?.text = list.attribute
+        
+        
+        return cell
     }
     
     func tableView(_ tableView:UITableView, didSelectRowAt indexPath:IndexPath)  {
@@ -56,13 +71,28 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     @IBOutlet weak var tableView: UITableView!
     
-     override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "toListSegue" {
-            if let destination = segue.destination as? SaveItemViewController{
     
-                let path = tableView.indexPathForSelectedRow
+    func updateTableView(item: String)->() {
         
-               destination.savedListItem = tasks
+        let addedTask:ItemOnList? = ItemOnList(date: 0, title: "", attribute: item)
+        
+        tasks.append(addedTask!)
+        
+        tableView.reloadData()
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toListSegue" {
+            //   let tasks = updatedText.text
+            if let destination = segue.destination as? SaveItemViewController  {
+                
+                _ = tableView.indexPathForSelectedRow
+                
+                destination.updateClosure = updateTableView
+                
+                destination.savedListItem = tasks
+                //      ItemOnList.append (tasks)
             }
         }
     }
@@ -83,4 +113,3 @@ class ListViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 }
-

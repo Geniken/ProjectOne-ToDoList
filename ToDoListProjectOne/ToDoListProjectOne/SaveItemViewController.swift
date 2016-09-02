@@ -21,21 +21,24 @@ class SaveItemViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
     }
- 
+    
     //Appending New List to To Do List Scene
     var savedString = [String]()
-    
+    var newString = ""
+    var updateClosure : ((newItem:String)->())?
     func sendToArray () {
-       guard let updatedText = adjustedText?.text, updatedText.isEmpty else {
+        guard let updatedText = adjustedText?.text, updatedText.isEmpty else {
             //let text = text/
-        return }
+            return }
         savedString.append(updatedText)
     }
-
-    @IBAction func saveButtonTapped(_ sender: AnyObject) {
     
+    @IBAction func saveButtonTapped(_ sender: AnyObject) {
+        
+        
+        updateClosure?(newItem:adjustedText.text)
+        
         navigationController!.popViewController(animated: true)
         // PREVENTS ONGOING SCENE REPEATS
         
@@ -47,10 +50,10 @@ class SaveItemViewController: UIViewController {
         }
     }
     
-  
     
-        override func didReceiveMemoryWarning() {
+    
+    override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        }
     }
+}
 
